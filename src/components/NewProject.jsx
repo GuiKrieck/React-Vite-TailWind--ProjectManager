@@ -1,14 +1,30 @@
 import { useRef } from "react";
-import Input from "./Input"
+import Input from "./Input";
+import { v4 as uuidv4 } from 'uuid';
 
-export default function NewProject() {
+export default function NewProject({onAddProject}) {
     
     const refTitle = useRef();
     const refDescription = useRef();
     const refDueDate = useRef();
+    const generatedId = uuidv4()
 
     const date = new Date().toLocaleDateString();
+
+    function handleSave(){
+        const enteredTitle = refTitle.current.value;
+        const enteredDescription = refDescription.current.value;
+        const enteredDueDate = refDueDate.current.value;
+
+        onAddProject({
+            title: enteredTitle,
+            description: enteredDescription,
+            dueDate: enteredDueDate,
+            id: generatedId
+        })
+    }
     
+
 
     return(
         <div className="w-[35rem] mt-16" >
@@ -25,7 +41,10 @@ export default function NewProject() {
                     </button>
                 </li>
                 <li>
-                    <button className="px-6 py-2 rounded-md bg-cyan-400 text-stone-900 hover:bg-cyan-600 hover:text-stone-950">
+                    <button 
+                        className="px-6 py-2 rounded-md bg-cyan-400 text-stone-900 hover:bg-cyan-600 hover:text-stone-950"
+                        onClick={handleSave}
+                    >
                         Save
                     </button>
                 </li>

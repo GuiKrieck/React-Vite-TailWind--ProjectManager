@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {useState } from "react";
 import DefaultBackground from "./components/DefaultBackground";
 import NewProject from "./components/NewProject";
 import SideBar from "./components/SideBar";
@@ -10,7 +10,7 @@ function App() {
     projects:[]
   });
 
-  function handleAddProject() {
+  function handleSaveNewProject() {
     setProjectsState((prevProjectsState) => {
       return{
         ...prevProjectsState,
@@ -19,16 +19,26 @@ function App() {
     })
   }
 
+  function handleAddProject(newProjectData){
+    setProjectsState((prevProjectsState) =>{
+      return{
+        ...prevProjectsState,
+        selectedProjectId: undefined,
+        projects:[...prevProjectsState.projects, newProjectData]
+      }
+    })
+  }
+  
   let content;
   if(projectsState.selectedProjectId === undefined){
-    content= <DefaultBackground onAddProject={handleAddProject} />
+    content= <DefaultBackground onSaveNewProject={handleSaveNewProject} />
   } else if (projectsState.selectedProjectId === null){
-    content = <NewProject />
+    content = <NewProject onAddProject={handleAddProject} />
   }
 
   return (
     <main className="h-screen flex gap-8 bg-slate-400" >
-      <SideBar onAddProject={handleAddProject} />
+      <SideBar onSaveNewProject={handleSaveNewProject} projects={projectsState.projects} />
       {content}
     </main>
   );
