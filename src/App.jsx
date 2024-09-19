@@ -33,7 +33,16 @@ function App() {
   if(projectsState.selectedProjectId === undefined){
     content= <DefaultBackground onSaveNewProject={handleSaveNewProject} />
   } else if (projectsState.selectedProjectId === null){
-    content = <NewProject onAddProject={handleAddProject} />
+    content = <NewProject onAddProject={handleAddProject} onCancel={handleCancelNewProject} />
+  }
+
+  function handleCancelNewProject(){
+    setProjectsState((prevProjectsState) => {
+      return{
+        ...prevProjectsState,
+        selectedProjectId: undefined,
+      }
+    })
   }
 
   return (
