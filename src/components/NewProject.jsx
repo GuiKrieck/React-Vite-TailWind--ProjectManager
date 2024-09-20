@@ -12,8 +12,6 @@ export default function NewProject({ onAddProject, onCancel }) {
     const refDueDate = useRef();
     const generatedId = uuidv4()
 
-    const date = new Date().toLocaleDateString();
-
     function handleSave() {
         const enteredTitle = refTitle.current.value;
         const enteredDescription = refDescription.current.value;
@@ -49,7 +47,7 @@ export default function NewProject({ onAddProject, onCancel }) {
                 <div>
                     <Input ref={refTitle} label="Title" type="text" />
                     <Input ref={refDescription} label="Description" isTextArea />
-                    <Input ref={refDueDate} label="Due Date" type="date" min={date} />
+                    <Input ref={refDueDate} label="Due Date" type="date" />
                 </div>
                 <menu className="flex items-center justify-end gap-4 my-4">
                     <li>
