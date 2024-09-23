@@ -1,6 +1,6 @@
 import Tasks from "./Tasks"
 
-export default function ProjectBackground({ project, onDeleteProject, onAddTask, onDeleteTask, tasks }) {
+export default function ProjectBackground({ project, onDeleteProject, onAddTask, onDeleteTask }) {
     const formatedDate = new Date(project.dueDate).toLocaleDateString('en-us', {
         day:'numeric',
         month:'short',
@@ -13,7 +13,7 @@ export default function ProjectBackground({ project, onDeleteProject, onAddTask,
                 <div className="flex items-center justify-between" >
                     <h1 className="text-3xl font-bold text-stone-800 mb-2">{project.title}</h1>
                     <button 
-                        className="px-6 py-2 rounded-md bg-stone-200 text-stone-800 hover:bg-stone-300 hover:text-stone-950"
+                        className="px-6 py-2 rounded-md bg-stone-200 text-stone-800 hover:bg-red-500 hover:text-stone-950"
                         onClick={onDeleteProject}
                     >
                         Delete
@@ -26,7 +26,7 @@ export default function ProjectBackground({ project, onDeleteProject, onAddTask,
                     {project.description}
                 </p>
             </div>
-            <Tasks onAdd={onAddTask} onDelete={onDeleteTask} tasks={tasks} />
+            <Tasks onAdd={onAddTask} onDelete={onDeleteTask} tasks={project.tasks} />
         </section>
     )
 }

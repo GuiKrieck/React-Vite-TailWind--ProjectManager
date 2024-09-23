@@ -28,7 +28,8 @@ export default function NewProject({ onAddProject, onCancel }) {
             title: enteredTitle,
             description: enteredDescription,
             dueDate: enteredDueDate,
-            id: generatedId
+            id: generatedId,
+            tasks:[],
         })
     }
 

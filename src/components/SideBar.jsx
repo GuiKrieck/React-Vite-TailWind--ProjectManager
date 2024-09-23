@@ -9,26 +9,34 @@ export default function SideBar({onSaveNewProject, projects, onSelectProject, se
                     + Add Project
                 </Button> 
             </div>
-            <ul>
+            <ul className="max-h-[35rem] overflow-y-auto scroll-smooth">
                 <h3 className="w-full text-center uppercase py-1 border-b mt-4">Projects</h3>
                 {projects.map((project) => {
 
                     let classes
 
+                    const formatedDate = new Date(project.dueDate).toLocaleDateString('en-us', {
+                        day:'numeric',
+                        month:'short',
+                        year:'numeric',
+                    })
+
                     if (project.id === selectedProjectId){
-                        classes = "w-full text-left px-2 py-1 rounded-sm my-1 bg-cyan-400 text-stone-900"
+                        classes = "flex justify-between cursor-pointer border-b w-full px-2 py-1 rounded-sm my-1 bg-cyan-400 text-stone-900"
                     } else{
-                        classes = "w-full text-left px-2 py-1 rounded-sm my-1 text-stone-100 hover:bg-cyan-400 hover:text-stone-900"
+                        classes = "flex justify-between cursor-pointer border-b w-full px-2 py-1 rounded-sm my-1 text-stone-100 hover:bg-cyan-400 hover:text-stone-900"
                     }
 
                    return (
-                    <li key={project.id}>
-                        <button 
-                            className={classes}
-                            onClick={() => onSelectProject(project.id)}   
-                        >
-                            {project.title}
-                        </button>
+                    <li
+                        className={classes}
+                        onClick={() => onSelectProject(project.id)}
+                        key={project.id}
+                    >
+                        <button className="max-w-[60%] text-left">{project.title}</button>
+                        <p className="text-sm text-red-500">
+                            {formatedDate}
+                        </p>
                     </li>
                    )}
                 )}

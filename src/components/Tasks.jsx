@@ -7,7 +7,7 @@ export default function Tasks({tasks, onAdd, onDelete}){
             <AddTasks onAdd={onAdd} />
             {tasks.length === 0 && <p className="text-stone-800 mb-4">This project does not have any tasks yet</p>}
             {tasks.length > 0 && 
-                <ul className="p-4 rounded-md bg-slate-400">
+                <ul className="p-4 rounded-md bg-slate-400 max-h-[23rem] overflow-y-auto" >
                     {tasks.map((task) => (
                         <li className="flex justify-between my-4 border-b-2" key={task.id}>
                             <span>
@@ -23,6 +23,5 @@ export default function Tasks({tasks, onAdd, onDelete}){
                     ))}
                 </ul>}
         </section>
-    )
-    
+    )    
 }
