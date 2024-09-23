@@ -1,7 +1,14 @@
+import { useProjectContext } from "../store/project-context"
 import Tasks from "./Tasks"
 
-export default function ProjectBackground({ project, onDeleteProject, onAddTask, onDeleteTask }) {
-    const formatedDate = new Date(project.dueDate).toLocaleDateString('en-us', {
+export default function ProjectBackground() {
+
+    const {projectsState, handleDeleteProject} = useProjectContext()
+
+    const selectedProject = projectsState.projects.find((project) => project.id === projectsState.selectedProjectId)
+    
+
+    const formatedDate = new Date(selectedProject.dueDate).toLocaleDateString('en-us', {
         day:'numeric',
         month:'short',
         year:'numeric',
@@ -11,10 +18,10 @@ export default function ProjectBackground({ project, onDeleteProject, onAddTask,
         <section className="w-[35rem] mt-16">
             <div className="pb-4 mb-4 border-b-2 border-stone-300" >
                 <div className="flex items-center justify-between" >
-                    <h1 className="text-3xl font-bold text-stone-800 mb-2">{project.title}</h1>
+                    <h1 className="text-3xl font-bold text-stone-800 mb-2">{selectedProject.title}</h1>
                     <button 
                         className="px-6 py-2 rounded-md bg-stone-200 text-stone-800 hover:bg-red-500 hover:text-stone-950"
-                        onClick={onDeleteProject}
+                        onClick={handleDeleteProject}
                     >
                         Delete
                     </button>
@@ -23,10 +30,10 @@ export default function ProjectBackground({ project, onDeleteProject, onAddTask,
                     Due: <span className="mb-4 text-red-800"> {formatedDate} </span>
                 </p>
                 <p className="mb-4 text-stone-900 whitespace-pre-wrap">
-                    {project.description}
+                    {selectedProject.description}
                 </p>
             </div>
-            <Tasks onAdd={onAddTask} onDelete={onDeleteTask} tasks={project.tasks} />
+            <Tasks />
         </section>
     )
 }

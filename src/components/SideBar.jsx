@@ -1,17 +1,21 @@
+import { useProjectContext } from "../store/project-context";
 import Button from "./Button";
 
-export default function SideBar({onSaveNewProject, projects, onSelectProject, selectedProjectId}){
+export default function SideBar({ selectedProjectId}){
+
+    const {projectsState, handleSaveNewProject, handleSelectedProject} = useProjectContext();
+
     return(
         <aside className="w-1/3 px-8 py-16 bg-sky-900 text-stone-50 md:w-72 rounded-r-xl">
             <h2 className="mb-8 font-bold uppercase md:text-xl text-stone-200">Project Manager</h2>
             <div>
-                <Button onClick={onSaveNewProject}>
+                <Button onClick={handleSaveNewProject}>
                     + Add Project
                 </Button> 
             </div>
             <ul className="max-h-[35rem] overflow-y-auto scroll-smooth">
                 <h3 className="w-full text-center uppercase py-1 border-b mt-4">Projects</h3>
-                {projects.map((project) => {
+                {projectsState.projects.map((project) => {
 
                     let classes
 
@@ -30,7 +34,7 @@ export default function SideBar({onSaveNewProject, projects, onSelectProject, se
                    return (
                     <li
                         className={classes}
-                        onClick={() => onSelectProject(project.id)}
+                        onClick={() => handleSelectedProject(project.id)}
                         key={project.id}
                     >
                         <button className="max-w-[60%] text-left">{project.title}</button>

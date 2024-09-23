@@ -1,15 +1,18 @@
 import { useRef, useState } from "react"
 import { v4 as uuidv4 } from 'uuid';
 import Modal from "./Modal";
+import { useProjectContext } from "../store/project-context";
 
 export default function AddTasks({ onAdd }) {
 
+    const { handleAddTasks} = useProjectContext()
+    
     const modalRef = useRef();
 
     const [newTask, setNewTask] = useState('')
     const generatedId = uuidv4();
 
-    function handleAddTasks() {
+    function addTasks() {
 
         if (newTask.trim() === "") {
             modalRef.current.open()
@@ -21,7 +24,7 @@ export default function AddTasks({ onAdd }) {
             id: generatedId
         }
 
-        onAdd(taskToAdd)
+        handleAddTasks(taskToAdd)
         setNewTask('');
     }
 
@@ -40,7 +43,7 @@ export default function AddTasks({ onAdd }) {
                     value={newTask}
                     onChange={(event) => setNewTask(event.target.value)}
                 />
-                <button className="px-2 py-1 rounded bg-cyan-500 text-stone-900 hover:bg-cyan-700 hover:text-stone-950" onClick={handleAddTasks}>Add Task</button>
+                <button className="px-2 py-1 rounded bg-cyan-500 text-stone-900 hover:bg-cyan-700 hover:text-stone-950" onClick={addTasks}>Add Task</button>
             </div>
         </>
 

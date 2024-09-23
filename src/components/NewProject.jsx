@@ -2,8 +2,11 @@ import { useRef } from "react";
 import Input from "./Input";
 import { v4 as uuidv4 } from 'uuid';
 import Modal from "./Modal";
+import { useProjectContext } from "../store/project-context";
 
-export default function NewProject({ onAddProject, onCancel }) {
+export default function NewProject() {
+
+    const{handleCancelNewProject, handleAddProject}=useProjectContext()
 
     const modalRef = useRef();
 
@@ -24,7 +27,7 @@ export default function NewProject({ onAddProject, onCancel }) {
         }
 
 
-        onAddProject({
+        handleAddProject({
             title: enteredTitle,
             description: enteredDescription,
             dueDate: enteredDueDate,
@@ -32,8 +35,6 @@ export default function NewProject({ onAddProject, onCancel }) {
             tasks:[],
         })
     }
-
-
 
     return (
         <>
@@ -54,7 +55,7 @@ export default function NewProject({ onAddProject, onCancel }) {
                     <li>
                         <button 
                             className="px-6 py-2 rounded-md bg-stone-200 text-stone-800 hover:bg-stone-300 hover:text-stone-950"
-                            onClick={onCancel}
+                            onClick={handleCancelNewProject}
                         >
                             Cancel
                         </button>
