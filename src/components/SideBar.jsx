@@ -1,7 +1,7 @@
 import { useProjectContext } from "../store/project-context";
 import Button from "./Button";
 
-export default function SideBar({ selectedProjectId}){
+export default function SideBar(){
 
     const {projectsState, handleSaveNewProject, handleSelectedProject} = useProjectContext();
 
@@ -25,7 +25,7 @@ export default function SideBar({ selectedProjectId}){
                         year:'numeric',
                     })
 
-                    if (project.id === selectedProjectId){
+                    if (project.id === projectsState.selectedProjectId){
                         classes = "flex justify-between cursor-pointer border-b w-full px-2 py-1 rounded-sm my-1 bg-cyan-400 text-stone-900"
                     } else{
                         classes = "flex justify-between cursor-pointer border-b w-full px-2 py-1 rounded-sm my-1 text-stone-100 hover:bg-cyan-400 hover:text-stone-900"
