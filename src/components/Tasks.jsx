@@ -1,7 +1,7 @@
 import { useProjectContext } from "../store/project-context";
 import AddTasks from "./AddTasks";
 
-export default function Tasks({ onDelete}){
+export default function Tasks(){
     
     const {projectsState, handleDeleteTasks} = useProjectContext()
 

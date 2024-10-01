@@ -14,12 +14,12 @@ export default function NewProject() {
     const refDescription = useRef();
     const refDueDate = useRef();
     const generatedId = uuidv4()
+    const todayDate = new Date().toISOString().split("T")[0];
 
     function handleSave() {
         const enteredTitle = refTitle.current.value;
         const enteredDescription = refDescription.current.value;
         const enteredDueDate = refDueDate.current.value;
-
 
         if (enteredTitle.trim() === "" || enteredDescription.trim() === "" || enteredDueDate.trim() === "") {
             modalRef.current.open()
@@ -49,7 +49,7 @@ export default function NewProject() {
                 <div>
                     <Input ref={refTitle} label="Title" type="text" />
                     <Input ref={refDescription} label="Description" isTextArea />
-                    <Input ref={refDueDate} label="Due Date" type="date" />
+                    <Input ref={refDueDate} label="Due Date" type="date" min={todayDate} />
                 </div>
                 <menu className="flex items-center justify-end gap-4 my-4">
                     <li>
