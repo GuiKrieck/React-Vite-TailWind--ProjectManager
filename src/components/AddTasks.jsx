@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import Modal from "./Modal";
 import { useProjectContext } from "../store/project-context";
 
-export default function AddTasks({ onAdd }) {
+export default function AddTasks() {
 
     const { handleAddTasks} = useProjectContext()
     

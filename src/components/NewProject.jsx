@@ -7,9 +7,7 @@ import { useProjectContext } from "../store/project-context";
 export default function NewProject() {
 
     const{handleCancelNewProject, handleAddProject}=useProjectContext()
-
     const modalRef = useRef();
-
     const refTitle = useRef();
     const refDescription = useRef();
     const refDueDate = useRef();
@@ -20,8 +18,13 @@ export default function NewProject() {
         const enteredTitle = refTitle.current.value;
         const enteredDescription = refDescription.current.value;
         const enteredDueDate = refDueDate.current.value;
-
+        
         if (enteredTitle.trim() === "" || enteredDescription.trim() === "" || enteredDueDate.trim() === "") {
+            modalRef.current.open()
+            return
+        }
+
+        if (enteredDueDate < todayDate) {
             modalRef.current.open()
             return
         }
@@ -42,7 +45,7 @@ export default function NewProject() {
                 ref={modalRef} 
                 buttonCaption="Close" 
                 modalTitle="Invalid Inputs" 
-                modalMessage="Please make sure to provide a value for every field."
+                modalMessage="Please make sure to provide a valid value for every field. (obs:.the due date can't be before today)"
             />
             <div className="w-[35rem] mt-16" >
                 <h2 className="w-full text-center uppercase font-bold text-stone-900 text-xl">New Project</h2>
