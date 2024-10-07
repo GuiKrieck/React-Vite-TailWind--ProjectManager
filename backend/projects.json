@@ -1,20 +1,27 @@
 {
-    "projects":[
+  "projects": [
+    {
+      "title": "Test Project",
+      "description": "test description",
+      "dueDate": "10/10/2024",
+      "id": "123",
+      "tasks": [
         {
-            "title": "Test Project",
-            "description": "test description",
-            "dueDate": "10/10/2024",
-            "id": "123",
-            "tasks":[
-                {
-                    "task": "Test Task",
-                    "id": "1"
-                },
-                {
-                    "task": "Test Task 2",
-                    "id": "2"
-                }
-            ]
+          "task": "Test Task",
+          "id": "1"
+        },
+        {
+          "task": "Test Task 2",
+          "id": "2"
         }
-    ]
+      ]
+    },
+    {
+      "title": "adding test",
+      "description": "adding a new project",
+      "dueDate": "2024-10-25",
+      "id": "d060d941-ad93-4b35-923d-0d0892a35b99",
+      "tasks": []
+    }
+  ]
 }

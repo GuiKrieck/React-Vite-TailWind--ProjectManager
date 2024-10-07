@@ -1,11 +1,23 @@
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
+const cors = require('cors');
 const app = express()
 
+app.use(cors());
 app.use(express.json());
 
 const projectsFilePath = path.join(__dirname, 'projects.json');
+
+app.get('/projects', (req, res) => {
+    fs.readFile(projectsFilePath, 'utf-8', (err, data) =>{
+        if (err){
+            return res.status(500).json({error: 'Error on reading the projects file'});
+        }
+
+        res.status(200).json(JSON.parse(data));
+    });
+});
 
 app.post('/addProject', (req, res) => {
     const newProject = req.body;
