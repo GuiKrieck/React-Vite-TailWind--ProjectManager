@@ -95,57 +95,96 @@ export function useProjectContext() {
         })
       }
 
-      function handleDeleteProject() {
-        setProjectsState((prevProjectsState) => {
-          return {
-            ...prevProjectsState,
-            selectedProjectId: undefined,
-            projects: prevProjectsState.projects.filter((project) => project.id !== prevProjectsState.selectedProjectId)
+      async function handleDeleteProject() {
+        try{
+          const response = await fetch(`http://localhost:5000/projects/${projectsState.selectedProjectId}` ,{
+            method:'DELETE',
+          });
+
+          if(!response.ok) {
+            throw new Error('Error deleting the project');
           }
-        })
+
+          setProjectsState((prevProjectsState) => {
+            return {
+              ...prevProjectsState,
+              selectedProjectId: undefined,
+              projects: prevProjectsState.projects.filter((project) => project.id !== prevProjectsState.selectedProjectId),
+            };
+          });
+        } catch (error) {
+          console.error(error);
+        }
       }
 
-      function handleAddTasks(task) {
-        setProjectsState((prevProjectsState) => {
-          const newTask = {
-            ...task,
+      async function handleAddTasks(task) {
+        const projectId = projectsState.selectedProjectId;
+
+        try{
+          const response = await fetch(`http://localhost:5000/addTask/${projectId}`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(task),
+          });
+
+          if(!response.ok) {
+            throw new Error("Error on adding the task");
           }
-    
-          const selectedProjectIndex = prevProjectsState.projects.findIndex((project) => project.id === prevProjectsState.selectedProjectId);
-    
-          const updatedProject = {
-            ...prevProjectsState.projects[selectedProjectIndex],
-            tasks: [...prevProjectsState.projects[selectedProjectIndex].tasks, newTask]
-          };
-    
-          const updatedProjects = [...prevProjectsState.projects];
-          updatedProjects[selectedProjectIndex] = updatedProject;
-    
-          return {
-            ...prevProjectsState,
-            projects: updatedProjects,
-          }
-        })
+
+          setProjectsState((prevProjectsState) => {
+            const selectedProjectIndex = prevProjectsState.projects.findIndex((project) => project.id === projectId);
+      
+            const updatedProject = {
+              ...prevProjectsState.projects[selectedProjectIndex],
+              tasks: [...(prevProjectsState.projects[selectedProjectIndex].tasks || []), task]
+            };
+      
+            const updatedProjects = [...prevProjectsState.projects];
+            updatedProjects[selectedProjectIndex] = updatedProject;
+      
+            return {
+              ...prevProjectsState,
+              projects: updatedProjects,
+            };
+          });
+
+        }catch(error){
+          console.error(error)
+        }
       }
 
-      function handleDeleteTasks(id) {
-        setProjectsState((prevProjectsState) => {
-    
-          const selectedProjectIndex = prevProjectsState.projects.findIndex((project) => project.id === prevProjectsState.selectedProjectId);
-    
-          const updatedProject = {
-            ...prevProjectsState.projects[selectedProjectIndex],
-            tasks: prevProjectsState.projects[selectedProjectIndex].tasks.filter((task) => task.id !== id)
-          };
-    
-          const updatedProjects = [...prevProjectsState.projects];
-          updatedProjects[selectedProjectIndex] = updatedProject;
-    
-          return {
-            ...prevProjectsState,
-            projects: updatedProjects,
+      async function handleDeleteTasks(id) {
+        try{
+          const response = await fetch(`http://localhost:5000/projects/${projectsState.selectedProjectId}/tasks/${id}`,{
+            method: 'DELETE',
+          });
+
+          if(!response.ok){
+            throw new Error("Error deleting the task");
           }
-        })
+
+          setProjectsState((prevProjectsState) => {
+    
+            const selectedProjectIndex = prevProjectsState.projects.findIndex((project) => project.id === prevProjectsState.selectedProjectId);
+      
+            const updatedProject = {
+              ...prevProjectsState.projects[selectedProjectIndex],
+              tasks: prevProjectsState.projects[selectedProjectIndex].tasks.filter((task) => task.id !== id)
+            };
+      
+            const updatedProjects = [...prevProjectsState.projects];
+            updatedProjects[selectedProjectIndex] = updatedProject;
+      
+            return {
+              ...prevProjectsState,
+              projects: updatedProjects,
+            };
+          });
+        }catch(error){
+          console.log(error);
+        }
       }
 
 
