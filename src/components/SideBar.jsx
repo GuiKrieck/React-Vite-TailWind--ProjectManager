@@ -23,6 +23,7 @@ export default function SideBar(){
                         day:'numeric',
                         month:'short',
                         year:'numeric',
+                        timeZone: 'UTC'
                     })
 
                     if (project.id === projectsState.selectedProjectId){

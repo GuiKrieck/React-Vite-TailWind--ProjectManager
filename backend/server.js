@@ -40,6 +40,37 @@ app.post('/addProject', (req, res) => {
     });
 });
 
+app.put('/projects/:projectId', (req, res) => {
+    const {projectId} = req.params;
+    const updatedData = req.body;
+
+    fs.readFile(projectsFilePath, 'utf-8', (err, data) => {
+        if (err) {
+            return res.status(500).json({error: "Error reading projects file"});
+        }
+
+        const projectsData = JSON.parse(data);
+        const projectIndex = projectsData.projects.findIndex((project) => project.id === projectId);
+
+        if (projectIndex === -1) {
+            return res.status(404).json({error: 'Project not found'})
+        }
+
+        projectsData.projects[projectIndex]= {
+            ...projectsData.projects[projectIndex],
+            ...updatedData,
+        };
+
+        fs.writeFile(projectsFilePath, JSON.stringify(projectsData, null, 2), (err) => {
+            if (err){
+                return res.status(500).json({error:'Error saving projects file'});
+            }
+
+            res.status(200).json({message: 'Project Updated Successfully', updatedProjectData:projectsData.projects[projectIndex]});
+        });
+    });
+});
+
 app.delete('/projects/:projectId', (req, res) =>{
     const {projectId} = req.params;
 

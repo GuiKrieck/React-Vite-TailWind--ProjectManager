@@ -95,6 +95,43 @@ export function useProjectContext() {
         })
       }
 
+      async function handleEditProject(newProjectData){
+        const projectId = projectsState.selectedProjectId;
+
+        try{
+          const response = await fetch(`http://localhost:5000/projects/${projectId}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newProjectData),
+          });
+
+          if (!response.ok) {
+            throw new Error('Error updating the project')
+          }
+
+          const data = await response.json();
+          const updatedProject = data.updatedProjectData
+          
+          setProjectsState((prevProjectsState) => {
+            const updatedProjects = prevProjectsState.projects.map(project =>
+                project.id === projectId ? updatedProject : project
+            );
+
+            return {
+                ...prevProjectsState,
+                projects: updatedProjects,
+            };
+        });
+
+
+
+        } catch (error) {
+          console.error('Error updating the project:', error);
+        }
+      }
+
       async function handleDeleteProject() {
         try{
           const response = await fetch(`http://localhost:5000/projects/${projectsState.selectedProjectId}` ,{
@@ -195,6 +232,7 @@ export function useProjectContext() {
         handleCancelNewProject,
         handleAddProject,
         handleSelectedProject,
+        handleEditProject,
         handleDeleteProject,
         handleAddTasks,
         handleDeleteTasks,
