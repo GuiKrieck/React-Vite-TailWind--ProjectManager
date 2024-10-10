@@ -224,8 +224,6 @@ export function useProjectContext() {
         }
       }
 
-
-
     return{
         projectsState,
         handleSaveNewProject,

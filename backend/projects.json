@@ -1,31 +1,16 @@
 {
   "projects": [
     {
-      "title": "Test Project",
-      "description": "test description",
-      "dueDate": "2024-10-10",
-      "id": "123",
+      "title": "Adding project through application",
+      "description": "test test",
+      "dueDate": "2024-10-29",
+      "id": "5e5e492c-42e6-4a96-833d-084b1ee870f4",
       "tasks": [
         {
-          "task": "Test Task",
-          "id": "1"
-        },
-        {
-          "task": "Test Task 2",
-          "id": "2"
-        },
-        {
-          "task": "abd",
-          "id": "a73d4a85-27ef-460a-b9b1-5fe015449f71"
+          "task": "task 1",
+          "id": "0b5886d1-4adf-42f6-9441-0d3d9d9ef1e7"
         }
       ]
-    },
-    {
-      "title": "adding test",
-      "description": "adding project through app",
-      "dueDate": "2024-10-30",
-      "id": "67d44b3e-0f6e-470f-bd29-ceb7be44ae55",
-      "tasks": []
     }
   ]
 }

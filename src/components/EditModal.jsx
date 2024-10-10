@@ -43,6 +43,12 @@ const EditModal = forwardRef(function Modal({projectTitle, projectDescription, p
             return
         }
 
+        if (refDueDate.current.value < todayDate) {
+            refDueDate.current.value = ""
+            handleCloseModal();
+            return
+        }
+
         const updatedProject = {
             title: refTitle.current.value.trim() ==="" ? title: refTitle.current.value,
             description: refDescription.current.value.trim() ==="" ? description: refDescription.current.value,
@@ -50,11 +56,11 @@ const EditModal = forwardRef(function Modal({projectTitle, projectDescription, p
         };
 
         handleEditProject(updatedProject);
+        handleCloseModal();
 
-        dialog.current.close();
     }
 
-    function handleEditCancel(){
+    function handleCloseModal(){
         refTitle.current.value = title;
         refDescription.current.value = description;
         refDueDate.current.value = dueDate
@@ -81,7 +87,7 @@ const EditModal = forwardRef(function Modal({projectTitle, projectDescription, p
                 </button>
                 <button
                     className="px-6 py-2 rounded-md bg-stone-200 text-stone-800 hover:bg-red-500 hover:text-stone-950"
-                    onClick={handleEditCancel}
+                    onClick={handleCloseModal}
                 >
                     Cancel
                 </button>

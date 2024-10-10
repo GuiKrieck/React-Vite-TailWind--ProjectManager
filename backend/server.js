@@ -157,5 +157,5 @@ app.delete('/projects/:projectId/tasks/:taskId', (req, res) =>{
 
 const PORT = 5000;
 app.listen(PORT, () => {
-    console.log(`Servidor rodando na porta ${PORT}`);
+    console.log(`Server on - Port: ${PORT}`);
 });
