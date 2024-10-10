@@ -13,7 +13,7 @@ export default function SideBar(){
                     + Add Project
                 </Button> 
             </div>
-            <ul className="max-h-[35rem] overflow-y-auto scroll-smooth">
+            <ul className="max-h-[65vh] overflow-y-auto scroll-smooth">
                 <h3 className="w-full text-center uppercase py-1 border-b mt-4">Projects</h3>
                 {projectsState.projects.map((project) => {
 
@@ -23,6 +23,7 @@ export default function SideBar(){
                         day:'numeric',
                         month:'short',
                         year:'numeric',
+                        timeZone: 'UTC'
                     })
 
                     if (project.id === projectsState.selectedProjectId){

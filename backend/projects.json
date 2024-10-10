@@ -1,0 +1,16 @@
+{
+  "projects": [
+    {
+      "title": "Adding project through application",
+      "description": "test test",
+      "dueDate": "2024-10-29",
+      "id": "5e5e492c-42e6-4a96-833d-084b1ee870f4",
+      "tasks": [
+        {
+          "task": "task 1",
+          "id": "0b5886d1-4adf-42f6-9441-0d3d9d9ef1e7"
+        }
+      ]
+    }
+  ]
+}
